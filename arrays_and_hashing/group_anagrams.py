@@ -4,11 +4,12 @@ class Solution:
         for str in strs: 
             sorted_str = ''.join(sorted(str))
             if sorted_str not in hashmap: 
-              hashmap[sorted_str] = 1
-            else: hashmap[sorted_str] += 1
+              hashmap[sorted_str] = [str]
+            else: hashmap[sorted_str].append(str)
 
-        return hashmap
+        return list(hashmap.values())
 
 sol = Solution()
 
 print(sol.groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
+# [["bat"],["nat","tan"],["ate","eat","tea"]]
