@@ -1,18 +1,22 @@
 function longestConsecutive(nums) {
-  let localLongest = 1;
-  let globalLongest = 1;
-  let numsSet = new Set(nums.sort((a, b) => a - b));
-  nums = [...numsSet];
+  if (nums.length === 0) return 0;
 
-  for (let i = 1; i < nums.length; i++) {
-    if (nums[i] - nums[i - 1] === 1) {
-      localLongest++;
-    } else {
-      globalLongest = Math.max(localLongest, globalLongest);
-      localLongest = 1;
+  let set = new Set(nums);
+  let globalLongest = 0;
+
+  for (const v of set) {
+    if (!set.has(v - 1)) {
+      let x = v; 
+      let len = 1;
+
+      while (set.has(x + 1)) {
+        x++;
+        len++;
+      }
+
+      if (len > globalLongest) globalLongest = len;
     }
   }
-  return Math.max(localLongest, globalLongest)
-};
 
-console.log(longestConsecutive([1,0,1,2]))
+  return globalLongest
+};
